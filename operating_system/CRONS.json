@@ -50,5 +50,12 @@
     "type": "agent",
     "job": "Read the file at operating_system/FINANCIAL_ADVISOR/FINANCIAL_ADVISOR.md and complete the tasks described there.",
     "enabled": true
+  },
+  {
+    "name": "daily-financial-advisor-routine",
+    "schedule": "0 8 * * *",
+    "type": "agent",
+    "job": "Execute the daily research routine for the Financial Advisor Bot as described in operating_system/FINANCIAL_ADVISOR/FINANCIAL_ADVISOR.md. Ensure all research tasks are completed and any necessary data is prepared for report generation.",
+    "enabled": true
   }
 ]
