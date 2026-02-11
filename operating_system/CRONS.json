@@ -57,5 +57,12 @@
     "type": "agent",
     "job": "Execute the daily research routine for the Financial Advisor Bot as described in operating_system/FINANCIAL_ADVISOR/FINANCIAL_ADVISOR.md. Ensure all research tasks are completed and any necessary data is prepared for report generation.",
     "enabled": true
+  },
+  {
+    "name": "spy-price-monitor",
+    "schedule": "*/30 * * * * *",
+    "type": "command",
+    "command": "node event_handler/spy-monitor.js",
+    "enabled": true
   }
 ]
