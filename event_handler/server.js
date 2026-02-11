@@ -7,7 +7,7 @@ require('dotenv').config();
 const { createJob } = require('./tools/create-job');
 const { loadCrons } = require('./cron');
 const { loadTriggers } = require('./triggers');
-const { setWebhook, sendMessage, formatJobNotification, downloadFile, reactToMessage, startTypingIndicator } = require('./tools/telegram');
+const { setWebhook, sendMessage, formatJobNotification, downloadFile, reactToMessage, startTypingIndicator, escapeHtml } = require('./tools/telegram');
 const { isWhisperEnabled, transcribeAudio } = require('./tools/openai');
 const { chat } = require('./claude');
 const { toolDefinitions, toolExecutors } = require('./claude/tools');
@@ -165,7 +165,8 @@ app.post('/telegram/webhook', async (req, res) => {
         updateHistory(chatId, newHistory);
 
         // Send response (auto-splits if needed)
-        await sendMessage(telegramBotToken, chatId, response);
+        // Escape HTML to prevent tags like <JOB_ID> from breaking Telegram's parser
+        await sendMessage(telegramBotToken, chatId, escapeHtml(response));
       } catch (err) {
         console.error('Failed to process message with Claude:', err);
         await sendMessage(telegramBotToken, chatId, 'Sorry, I encountered an error processing your message.').catch(() => {});
