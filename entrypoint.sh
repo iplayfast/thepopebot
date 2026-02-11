@@ -75,7 +75,14 @@ $(cat /job/logs/${JOB_ID}/job.md)"
 
 MODEL_FLAGS=""
 if [ -n "$MODEL" ]; then
-    MODEL_FLAGS="--provider anthropic --model $MODEL"
+    # Determine provider based on environment variables
+    if [ -n "$GEMINI_API_KEY" ]; then
+        MODEL_FLAGS="--provider google --model $MODEL"
+    elif [ -n "$ANTHROPIC_API_KEY" ]; then
+        MODEL_FLAGS="--provider anthropic --model $MODEL"
+    else
+        MODEL_FLAGS="--model $MODEL"
+    fi
 fi
 
 pi $MODEL_FLAGS -p "$PROMPT" --session-dir "${LOG_DIR}"
